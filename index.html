@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./jsencrypt.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCREKrw9FpW2PiPtoLOcYXBtu9wHe3NW2E",
+            authDomain: "chatcripto-b8514.firebaseapp.com",
+            databaseURL: "https://chatcripto-b8514.firebaseio.com",
+            projectId: "chatcripto-b8514",
+            storageBucket: "chatcripto-b8514.appspot.com",
+            messagingSenderId: "778802175785",
+            appId: "1:778802175785:web:94efacf60d63def7d46138",
+            measurementId: "G-KE7795TEEX"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script src="./meuCodigo.js">  </script>
+
+
+
+</head>
+
+<body onload="iniciar()">
+    <form name="meuForm" method="POST" onsubmit="enviarMensagem(document.meuForm.msg.value.toString()); return false">
+        <table align="center" width="80%" border='1' height="60%">
+            <tr>
+                <td>Ouvindo: <label id="simKeyOuvida"></label></td>
+            </tr>
+            <!--
+            <tr>
+                <td><input type="text" placeholder="Nova Chave Simetrica" value="" size="30" />
+                    <input type="button" value="<- Ouvir" onclick="ouvirNovaSimKey();" />
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td height="90%">
+                    <div id="chatTable"
+                        style="height:100%;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Eu: <input type="text" placeholder="User" id="user" value="ORIGEM" onkeyup="refreshMyUser()"
+                        size="10" />
+                    <input type="text" placeholder="Mensagem" id="msg" autofocus />
+                    <input type="submit" value="Enviar" />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <br />
+
+    <table align="center" width="80%" border='1' id="simKeysTable">
+        <tr>
+            <td colspan=3>Chaves Simétricas recebidas</td>
+        </tr>
+        <tr>
+            <td>Cifra da Chave Simétrica</td>
+            <td>Chave Simétrica</td>
+            <td>Opções</td>
+        </tr>
+    </table>
+
+    <br />
+
+    <form name="usersForm">
+        <table align="center" width="80%" border='1' id="userTable">
+            <tr>
+                <td colspan='3'>Enviar Chave Simétrica: <input type="text" required id="simKeyToSend"
+                        placeholder="Minha Chave Simétrica" /><input type='button' value="<- Ouvir"
+                        onclick="ouvirSimKey(document.getElementById('simKeyToSend').value)" /></td>
+            </tr>
+            <tr>
+                <td>Nome de usuário</td>
+                <td>Endereço IP</td>
+                <td>Opções</td>
+            </tr>
+
+        </table>
+    </form>
+
+</body>
+
+</html>
