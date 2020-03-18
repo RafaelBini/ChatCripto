@@ -1,9 +1,11 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilo.css" />
+
     <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
@@ -33,20 +35,44 @@
 </head>
 
 <body onload="iniciar()">
+
+
+
+
+
     <form name="meuForm" method="POST" onsubmit="enviarMensagem(document.meuForm.msg.value.toString()); return false">
-        <table align="center" width="80%" border='1' height="60%">
+        <br />
+        <table align="center" width="80%" height="4%">
             <tr>
-                <td>Ouvindo: <label id="simKeyOuvida"></label></td>
-            </tr>
-            <!--
-            <tr>
-                <td><input type="text" placeholder="Nova Chave Simetrica" value="" size="30" />
-                    <input type="button" value="<- Ouvir" onclick="ouvirNovaSimKey();" />
+                <td>
+                    Meu nome: <input type="text" placeholder="User" id="user" value="ORIGEM" onkeyup="refreshMyUser()"
+                        size="20" />
                 </td>
             </tr>
-            -->
+        </table>
+        <br />
+
+        <table align="center" width="80%" border='1' id="userTable">
+            <tr class="cabecalho">
+                <td colspan='3' align="center">Chave Simétrica: <input type="text" id="simKeyToSend"
+                        placeholder="Minha Chave Simétrica" autofocus /><input type='button' value="<- Ouvir"
+                        onclick="ouvirSimKey(document.getElementById('simKeyToSend').value)" /></td>
+            </tr>
+            <tr class="cabecalho">
+                <td>Nome de usuário</td>
+                <td>Endereço IP</td>
+                <td>Opções</td>
+            </tr>
+
+        </table>
+        <br />
+
+        <table align="center" width="80%" border='1' height="50%">
             <tr>
-                <td height="90%">
+                <td class="cabecalho">Ouvindo: <b><label id="simKeyOuvida"></label></b></td>
+            </tr>
+            <tr>
+                <td height="80%">
                     <div id="chatTable"
                         style="height:100%;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
 
@@ -54,45 +80,27 @@
                 </td>
             </tr>
             <tr>
-                <td>Eu: <input type="text" placeholder="User" id="user" value="ORIGEM" onkeyup="refreshMyUser()"
-                        size="10" />
-                    <input type="text" placeholder="Mensagem" id="msg" autofocus />
+                <td>
+                    <input type="text" placeholder="Mensagem" id="msg" size="64" />
+
                     <input type="submit" value="Enviar" />
                 </td>
             </tr>
 
         </table>
     </form>
-    <br />
 
     <table align="center" width="80%" border='1' id="simKeysTable">
-        <tr>
-            <td colspan=3>Chaves Simétricas recebidas</td>
+        <tr class="cabecalho">
+            <td colspan=3 align="center">Chaves Simétricas <b>Recebidas</b></td>
         </tr>
-        <tr>
+        <tr class="cabecalho">
             <td>Cifra da Chave Simétrica</td>
             <td>Chave Simétrica</td>
             <td>Opções</td>
         </tr>
     </table>
 
-    <br />
-
-    <form name="usersForm">
-        <table align="center" width="80%" border='1' id="userTable">
-            <tr>
-                <td colspan='3'>Enviar Chave Simétrica: <input type="text" required id="simKeyToSend"
-                        placeholder="Minha Chave Simétrica" /><input type='button' value="<- Ouvir"
-                        onclick="ouvirSimKey(document.getElementById('simKeyToSend').value)" /></td>
-            </tr>
-            <tr>
-                <td>Nome de usuário</td>
-                <td>Endereço IP</td>
-                <td>Opções</td>
-            </tr>
-
-        </table>
-    </form>
 
 </body>
 

@@ -1,0 +1,23 @@
+.cifraMsg {
+    height: 20px;
+    color: red;
+    font-style: italic;
+    font-size: 13px;
+    vertical-align: middle;
+
+}
+
+.normalMsg{
+    height: 25px;
+    vertical-align: middle;
+
+}
+
+.cabecalho{
+    background-color: lightblue;
+    color: black;
+}
+
+td{
+
+}

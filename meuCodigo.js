@@ -43,10 +43,13 @@ function iniciar() {
                     // Se conseguiu decriptar,
                     if (decMsg != "" && decUser != "") {
                         // Mostra cifra
-                        document.getElementById("chatTable").innerHTML += `<div height="10px">${decUser}: ${cifraMsg}</div>`;
+                        document.getElementById("chatTable").innerHTML += `<div class="cifraMsg">${cifraMsg}</div>`;
 
                         // Mostra decript
-                        document.getElementById("chatTable").innerHTML += `<div height="10px">${decUser}: ${decMsg}</div>`;
+                        document.getElementById("chatTable").innerHTML += `<div class="normalMsg" title="${cifraMsg}"><b>${decUser}:</b> ${decMsg}</div>`;
+
+                        // Desce o scroll
+                        $('#chatTable').scrollTop($('#chatTable')[0].scrollHeight);
                     }
 
                 }
@@ -67,7 +70,7 @@ function iniciar() {
             // Passa por cada usuario
             querySnapshot.forEach(function (doc) {
                 // Insere o html na tabela de usuários                     
-                document.getElementById("userTable").innerHTML += `<tr><td>${doc.data().userName}</td><td>${doc.id}</td><td><input type='button' value="Enviar" onclick="enviarSimKey('${doc.id}')" /></td></tr>`;
+                document.getElementById("userTable").innerHTML += `<tr><td>${doc.data().userName}</td><td>${doc.id}</td><td><input type='button' value="Enviar Chave" onclick="enviarSimKey('${doc.id}')" /></td></tr>`;
             });
 
         });
@@ -94,7 +97,7 @@ function iniciar() {
                 // Se eu consigo decriptar,
                 if (decSimKey != null) {
                     // Insere o html na tabela de simKeys                   
-                    document.getElementById("simKeysTable").innerHTML += `<tr><td>${cifra.substring(0, 25) + "..."}</td><td>${decSimKey}</td><td><input type='button' value="Ouvir" onclick="ouvirSimKey('${decSimKey}')" /></td></tr>`;
+                    document.getElementById("simKeysTable").innerHTML += `<tr><td>${cifra.substring(0, 55) + "..."}</td><td>${decSimKey}</td><td><input type='button' value="Ouvir" onclick="ouvirSimKey('${decSimKey}')" /></td></tr>`;
                 }
             });
 
@@ -228,8 +231,9 @@ function refreshMyUser() {
     // Recebe o user
     var newUserName = document.meuForm.user.value;
 
-    // Salva o usuario no bd
+    // Atualiza a coleção users
     db.collection("users").doc(meuIP).update({
         userName: newUserName
     });
+
 }
